@@ -5,6 +5,7 @@ NUM_EPOCHS=10
 HEATMAP_BATCH_SIZE=100
 GPU_NUMBER=0
 
+SINGLE_DATA_PATH='data/external/MMG/single/image.png'
 PATCH_MODEL_PATH='models/sample_patch_model.p'
 IMAGE_MODEL_PATH='models/ImageOnly__ModeImage_weights.p'
 IMAGEHEATMAPS_MODEL_PATH='models/ImageHeatmaps__ModeImage_weights.p'
@@ -15,7 +16,7 @@ export PYTHONPATH=$(pwd):$PYTHONPATH
 
 echo 'Stage 1: Crop Mammograms'
 python3 src/cropping/crop_single.py \
-    --mammogram-path $1 \
+    --mammogram-path ${SINGLE_DATA_PATH} \
     --view $2 \
     --cropped-mammogram-path ${SAMPLE_SINGLE_OUTPUT_PATH}/cropped.png \
     --metadata-path ${SAMPLE_SINGLE_OUTPUT_PATH}/cropped_metadata.pkl

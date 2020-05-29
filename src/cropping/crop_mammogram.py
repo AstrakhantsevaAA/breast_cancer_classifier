@@ -256,13 +256,13 @@ def crop_mammogram(input_data_folder, exam_list_path, cropped_exam_list_path, ou
     output_data_folder and saves new image list in cropped_image_list_path
     """
     exam_list = pickling.unpickle_from_file(exam_list_path)
-    
+
     image_list = data_handling.unpack_exam_into_images(exam_list)
-    
+
     if os.path.exists(output_data_folder):
         # Prevent overwriting to an existing directory
         print("Error: the directory to save cropped images already exists.")
-        return
+
     else:
         os.makedirs(output_data_folder)
 
@@ -336,8 +336,8 @@ def crop_mammogram_one_image_short_path(scan, input_data_folder, output_data_fol
 
     See: crop_mammogram_one_image
     """
-    full_input_file_path = os.path.join(input_data_folder, scan['short_file_path']+'.png')
-    full_output_file_path = os.path.join(output_data_folder, scan['short_file_path'] + '.png')
+    full_input_file_path = os.path.join(input_data_folder, scan['short_file_path'])
+    full_output_file_path = os.path.join(output_data_folder, scan['short_file_path'])
     cropping_info = crop_mammogram_one_image(
         scan=scan,
         input_file_path=full_input_file_path,

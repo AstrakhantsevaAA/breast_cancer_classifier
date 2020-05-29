@@ -6,18 +6,18 @@ NUM_EPOCHS=10
 HEATMAP_BATCH_SIZE=100
 GPU_NUMBER=0
 
-DATA_FOLDER='sample_data/images'
-INITIAL_EXAM_LIST_PATH='sample_data/exam_list_before_cropping.pkl'
+DATA_FOLDER='data/processed/Patients'
+INITIAL_EXAM_LIST_PATH='data/processed/exam_list_before_cropping.pkl'
 PATCH_MODEL_PATH='models/sample_patch_model.p'
 IMAGE_MODEL_PATH='models/sample_image_model.p'
 IMAGEHEATMAPS_MODEL_PATH='models/sample_imageheatmaps_model.p'
 
-CROPPED_IMAGE_PATH='sample_output/cropped_images'
-CROPPED_EXAM_LIST_PATH='sample_output/cropped_images/cropped_exam_list.pkl'
-EXAM_LIST_PATH='sample_output/data.pkl'
-HEATMAPS_PATH='sample_output/heatmaps'
-IMAGE_PREDICTIONS_PATH='sample_output/image_predictions.csv'
-IMAGEHEATMAPS_PREDICTIONS_PATH='sample_output/imageheatmaps_predictions.csv'
+CROPPED_IMAGE_PATH='data/processed/cropped_images'
+CROPPED_EXAM_LIST_PATH='data/processed/cropped_images/cropped_exam_list.pkl'
+EXAM_LIST_PATH='sample_data/data.pkl'
+HEATMAPS_PATH='sample_data/heatmaps'
+IMAGE_PREDICTIONS_PATH='sample_data/image_predictions.csv'
+IMAGEHEATMAPS_PREDICTIONS_PATH='sample_data/imageheatmaps_predictions.csv'
 export PYTHONPATH=$(pwd):$PYTHONPATH
 
 echo 'Stage 1: Crop Mammograms'

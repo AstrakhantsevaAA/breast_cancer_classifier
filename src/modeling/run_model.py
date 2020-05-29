@@ -71,13 +71,14 @@ def run_model(model, device, exam_list, parameters):
     with torch.no_grad():
         predictions_ls = []
         for datum in tqdm.tqdm(exam_list):
+            idx = datum['id']
             predictions_for_datum = []
             loaded_image_dict = {view: [] for view in VIEWS.LIST}
             loaded_heatmaps_dict = {view: [] for view in VIEWS.LIST}
             for view in VIEWS.LIST:
                 for short_file_path in datum[view]:
                     loaded_image = loading.load_image(
-                        image_path=os.path.join(parameters["image_path"], short_file_path + image_extension),
+                        image_path=os.path.join(parameters["image_path"], short_file_path),
                         view=view,
                         horizontal_flip=datum["horizontal_flip"],
                     )
@@ -130,9 +131,9 @@ def run_model(model, device, exam_list, parameters):
                 pred_df.columns.names = ["label", "view_angle"]
                 predictions = pred_df.T.reset_index().groupby("label").mean().T[LABELS.LIST].values
                 predictions_for_datum.append(predictions)
-            predictions_ls.append(np.mean(np.concatenate(predictions_for_datum, axis=0), axis=0))
+            predictions_ls.append([np.mean(np.concatenate(predictions_for_datum, axis=0), axis=0), idx])
 
-    return np.array(predictions_ls)
+    return predictions_ls
 
 
 def compute_batch_predictions(y_hat, mode):
@@ -187,8 +188,10 @@ def load_run_save(data_path, output_path, parameters):
     exam_list = pickling.unpickle_from_file(data_path)
     model, device = load_model(parameters)
     predictions = run_model(model, device, exam_list, parameters)
+    print(predictions)
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     # Take the positive prediction
+    LABELS.LIST.append('ID')
     df = pd.DataFrame(predictions, columns=LABELS.LIST)
     df.to_csv(output_path, index=False, float_format='%.4f')
 

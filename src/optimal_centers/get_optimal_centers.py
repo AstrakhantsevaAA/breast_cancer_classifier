@@ -42,6 +42,7 @@ def extract_center(datum, image):
     Compute the optimal center for an image
     """
     image = loading.flip_image(image, datum["full_view"], datum['horizontal_flip'])
+    print('datum: ', datum["view"])
     if datum["view"] == "MLO":
         tl_br_constraint = calc_optimal_centers.get_bottomrightmost_pixel_constraint(
             rightmost_x=datum["rightmost_points"][1],
@@ -66,7 +67,7 @@ def load_and_extract_center(datum, data_prefix):
     """
     Load image and computer optimal center
     """
-    full_image_path = os.path.join(data_prefix, datum["short_file_path"] + '.png')
+    full_image_path = os.path.join(data_prefix, datum["short_file_path"])
     image = reading_images.read_image_png(full_image_path)
     return datum["short_file_path"], extract_center(datum, image)
 

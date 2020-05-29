@@ -31,10 +31,12 @@ def unpack_exam_into_images(exam_list, cropped=False):
     Turn exam_list into image_list for parallel functions which process each image separately.
     """
     image_list = []
+    print(exam_list[0])
     for i, exam in enumerate(exam_list):
         for view in VIEWS.LIST:
             for j, image in enumerate(exam[view]):
                 image_dict = dict(
+                    idx=exam['id'],
                     short_file_path=image,
                     horizontal_flip=exam['horizontal_flip'],
                     full_view=view,
